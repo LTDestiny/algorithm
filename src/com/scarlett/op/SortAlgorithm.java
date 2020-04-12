@@ -41,7 +41,7 @@ public class SortAlgorithm {
 
     /**
      * 选择排序
-     * @param arr 排序的速度
+     * @param arr 排序的数组
      */
     private static void selectSort(int[] arr) {
         int min = arr[0];
@@ -63,11 +63,31 @@ public class SortAlgorithm {
         }
     }
 
+    /**
+     * 插入排序
+     * @param arr 排序的数组
+     */
+    public static void insertSort(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
+            // 待插入的数
+            int insertValue = arr[i];
+            // arr[i]这个数前面一个的下标
+            int insertIndex = i - 1;
+            while (insertIndex >= 0 && insertValue < arr[insertIndex]) {
+                arr[insertIndex + 1] = arr[insertIndex];
+                insertIndex--;
+            }
+            arr[insertIndex + 1] = insertValue;
+        }
+    }
+
     public static void main(String[] args) {
         int[] arr = {4, 31, 3, 45, 5, 6, 78, 23};
         bubbleSort(arr);
         System.out.println(Arrays.toString(arr));
         selectSort(arr);
+        System.out.println(Arrays.toString(arr));
+        insertSort(arr);
         System.out.println(Arrays.toString(arr));
     }
 
