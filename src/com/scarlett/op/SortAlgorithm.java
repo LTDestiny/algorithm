@@ -67,7 +67,7 @@ public class SortAlgorithm {
      * 插入排序
      * @param arr 排序的数组
      */
-    public static void insertSort(int[] arr) {
+    private static void insertSort(int[] arr) {
         for (int i = 1; i < arr.length; i++) {
             // 待插入的数
             int insertValue = arr[i];
@@ -81,14 +81,57 @@ public class SortAlgorithm {
         }
     }
 
+    /**
+     * 希尔排序，交换法，效率不高
+     * @param arr 待排序的数组
+     */
+    private static void shellSort(int[] arr) {
+        int temp = 0;
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                // 遍历各组中的元素，进行交换
+                for (int j = i - gap; j >= 0; j -= gap) {
+                    if (arr[j] > arr[i]) {
+                        temp = arr[j];
+                        arr[j] = arr[i];
+                        arr[i] = temp;
+                    }
+                }
+            }
+        }
+    }
+
+    private static void shellSort2(int[] arr) {
+        // 增量gap，并逐步的缩小增量
+        for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                int j = i;
+                int temp = arr[j];
+                if (arr[j] < arr[j - gap]) {
+                    while (j - gap > -1 && temp < arr[j - gap]) {
+                        // 移动
+                        arr[j] = arr[j - gap];
+                        j -= gap;
+                    }
+                    // 当退出while循环，temp找到适合插入的位置
+                    arr[j] = temp;
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         int[] arr = {4, 31, 3, 45, 5, 6, 78, 23};
+        // 测试
         bubbleSort(arr);
         System.out.println(Arrays.toString(arr));
         selectSort(arr);
         System.out.println(Arrays.toString(arr));
         insertSort(arr);
         System.out.println(Arrays.toString(arr));
+        shellSort(arr);
+        System.out.println(Arrays.toString(arr));
+        shellSort2(arr);
+        System.out.println(Arrays.toString(arr));
     }
-
 }
