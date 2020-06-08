@@ -28,6 +28,15 @@ public class BinaryTreeDemo {
         // 测试，后续遍历
         System.out.println("后序遍历");
         binaryTree.postOrder();
+
+        // 先序遍历查找
+        System.out.println("先序遍历查找");
+        HeroNode resNode = binaryTree.preOrderSearch(2);
+        if (resNode != null) {
+            System.out.println("找到了。" + resNode.getName());
+        } else {
+            System.out.println("没找到噢。");
+        }
     }
 }
 
@@ -127,6 +136,50 @@ class HeroNode {
         }
         System.out.println(this);
     }
+
+    /**
+     * 先序查找
+     * @param no 编号
+     * @return 如果找到返回该节点，否则返回null
+     */
+    public HeroNode preOrderSearch(int no) {
+        // 比较当前节点
+        if (this.no == no) {
+            return this;
+        }
+        // 判断当前左子节点是否为空，如果不为空，则递归先序查找
+        // 如果左递归查找，找到节点，则返回
+        HeroNode resNode = null;
+        if (this.left != null) {
+            resNode = this.left.preOrderSearch(no);
+        }
+        // 说明左子树找到
+        if (resNode != null) {
+            return resNode;
+        }
+        // 当前节点的右子节点是否为空，如果不为空，则继续向右递归先序查找
+        if (this.right != null) {
+            resNode = this.right.preOrderSearch(no);
+        }
+        return resNode;
+    }
+
+    public HeroNode infixOrderSearch(int no) {
+        HeroNode resNode = null;
+        if (this.left != null) {
+            resNode = this.left.infixOrderSearch(no);
+        }
+        if (resNode !=null) {
+            return resNode;
+        }
+        if (this.no == no) {
+            return this;
+        }
+        if (this.right != null) {
+            resNode = this.right.infixOrderSearch(no);
+        }
+        return resNode;
+    }
 }
 
 class BinaryTree {
@@ -158,6 +211,22 @@ class BinaryTree {
             root.postOrder();
         } else {
             System.out.println("二叉树为空，无法遍历。");
+        }
+    }
+
+    public HeroNode preOrderSearch(int no) {
+        if (root != null) {
+            return root.preOrderSearch(no);
+        } else {
+            return null;
+        }
+    }
+
+    public HeroNode infixOrderSearch(int no) {
+        if (root != null) {
+            return root.infixOrderSearch(no);
+        } else {
+            return null;
         }
     }
 }
