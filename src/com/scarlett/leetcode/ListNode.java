@@ -6,12 +6,12 @@ package com.scarlett.leetcode;
  * @Author : scarlett
  * @Date: 2020-06-09 10:51
  */
-public class LinkNode {
+public class ListNode {
 
     int val;
-    LinkNode next;
+    ListNode next;
 
-    LinkNode(int x) {
+    ListNode(int x) {
         val = x;
     }
 }
