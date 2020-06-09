@@ -37,6 +37,12 @@ public class BinaryTreeDemo {
         } else {
             System.out.println("没找到噢。");
         }
+
+        // 测试删除节点
+        System.out.println("测试删除节点。");
+        binaryTree.delNode(3);
+        System.out.println("删除后");
+        binaryTree.preOrder();
     }
 }
 
@@ -180,6 +186,31 @@ class HeroNode {
         }
         return resNode;
     }
+
+    /**
+     * 递归删除节点
+     * 如果删除的节点是叶子节点，则删除该节点
+     * 如果删除的节点是非叶子节点，则删除该子树
+     * @param no 编号
+     */
+    public void delNode(int no) {
+        if (this.left != null && this.left.no == no) {
+            this.left = null;
+            return;
+        }
+        if (this.right != null && this.right.no == no) {
+            this.right = null;
+            return;
+        }
+        // 向左子树递归删除
+        if (this.left != null) {
+            this.left.delNode(no);
+        }
+        // 向右子树递归删除
+        if (this.right != null) {
+            this.right.delNode(no);
+        }
+    }
 }
 
 class BinaryTree {
@@ -188,6 +219,18 @@ class BinaryTree {
 
     public void setRoot(HeroNode root) {
         this.root = root;
+    }
+
+    public void delNode(int no) {
+        if (root != null) {
+            if (root.getNo() == no) {
+                root = null;
+            } else {
+                root.delNode(no);
+            }
+        } else {
+            System.out.println("空树，无法删除。");
+        }
     }
 
     public void preOrder() {
